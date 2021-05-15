@@ -1,0 +1,15 @@
+doctype html
+html
+  head
+    title=title
+    link(rel='stylesheet', href='/stylesheets/jumbotron-narrow.css')
+    link(rel='stylesheet', href='/stylesheets/bootstrap.min.css')
+  body
+    div.container
+      div.header.clearfix
+        ul.nav.nav-pills.pull-right
+          li(role="presentation").active
+        h3.text-muted Van Transport
+      block content
+      footer.footer
+        p &copy; VNPAY #{new Date().getFullYear()}

@@ -1,0 +1,85 @@
+extends layout
+
+block content
+    h3=title
+    div.table-responsive
+        form#createOrder(action='create_payment_url', method='POST')
+            //- div.form-group
+            //-     label Loại hàng hóa
+            //-     select.form-control#orderType(name='orderType')
+            //-         option(value='topup') Nạp tiền điện thoại
+            //-         option(value='billpayment') Thanh toán hóa đơn
+            //-         option(value='fashion') Thời trang
+            div.form-group
+                label Số tiền
+                input.form-control#amount(name='amount', placeholder='Số tiền', value=amount, readonly)
+            div.form-group
+                label Nội dung thanh toán
+                textarea.form-control#orderDescription(name='orderDescription', placeholder='Nội dung thanh toán', readonly)=description
+            div.form-group
+                label Ngân hàng
+                select.form-control#bankCode(name='bankCode')
+                    option(value='') Không chọn
+                    option(value='VNPAYQR') Ngân hàng VNPAYQR
+                    option(value='NCB') Ngân hàng NCB
+                    option(value='SCB') Ngân hàng SCB
+                    option(value='SACOMBANK') Ngân hàng SACOMBANK
+                    option(value='EXIMBANK') Ngân hàng EXIMBANK
+                    option(value='MSBANK') Ngân hàng MSBANK
+                    option(value='NAMABANK') Ngân hàng NAMABANK
+                    option(value='VISA') Ngân hàng VISA
+                    option(value='VNMART') Ngân hàng VNMART
+                    option(value='VIETINBANK') Ngân hàng VIETINBANK
+                    option(value='VIETCOMBANK') Ngân hàng VIETCOMBANK
+                    option(value='HDBANK') Ngân hàng HDBANK
+                    option(value='DONGABANK') Ngân hàng Dong A
+                    option(value='TPBANK') Ngân hàng Tp Bank
+                    option(value='OJB') Ngân hàng OceanBank
+                    option(value='BIDV') Ngân hàng BIDV
+                    option(value='TECHCOMBANK') Ngân hàng Techcombank
+                    option(value='VPBANK') Ngân hàng VPBank
+                    option(value='AGRIBANK') Ngân hàng AGRIBANK
+                    option(value='MBBANK') Ngân hàng MBBank
+                    option(value='ACB') Ngân hàng ACB
+                    option(value='OCB') Ngân hàng OCB
+                    option(value='SHB') Ngân hàng SHB
+                    option(value='IVB') Ngân hàng IVB
+            div.form-group
+                label Ngôn ngữ
+                select.form-control#language(name='language')
+                    option(value='vn') Tiếng Việt
+                    option(value='en') English
+            button.btn.btn-default#btnPopup(type='submit') Thanh toán
+    p&nbsp;
+    //Neu dung Redirect thi khong can cac thu vien ben duoi
+    link(rel='stylesheet', href='https://pay.vnpay.vn/lib/vnpay/vnpay.css')
+    script(src='https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js')
+    script(src='https://pay.vnpay.vn/lib/vnpay/vnpay.js')
+    script(type='text/javascript').
+        $("#btnPopup").click(function () {
+            var postData = $("#createOrder").serialize();
+            var submitUrl = $("#createOrder").attr("action");
+            $.ajax({
+                type: "POST",
+                url: submitUrl,
+                data: postData,
+                dataType: 'JSON',
+                success: function (x) {
+                    if (x.code === '00') {
+                        if(window.vnpay)
+                            {
+                                vnpay.open({width: 768, height: 600, url: x.data});
+                            }
+                            else
+                            {
+                                location.href=x.data;
+                            }
+                            return false;
+                        
+                    } else {
+                        alert(x.Message);
+                    }
+                }
+            });
+            return false;
+        });

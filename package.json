@@ -1,0 +1,27 @@
+{
+  "name": "demopaymentnodb",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "dependencies": {
+    "body-parser": "~1.17.1",
+    "config": "^1.31.0",
+    "cookie-parser": "^1.4.4",
+    "dateformat": "^2.2.0",
+    "debug": "^3.2.6",
+    "dotenv": "^9.0.2",
+    "express": "^4.16.4",
+    "jade": "~1.11.0",
+    "jquery": "^3.4.0",
+    "md5": "^2.2.1",
+    "morgan": "~1.8.1",
+    "qs": "^6.7.0",
+    "serve-favicon": "^2.4.5",
+    "sha256": "^0.2.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  }
+}
